@@ -76,7 +76,7 @@
         };
 
         const ALL_MISSIONS = [
-            // [난이도 2개]
+            // [난이도 2개] - 쉬움
             { id: 101, theme: "집", icon: "🏠", requirements: { 3: 1, 4: 1 }, total: 2 },
             { id: 102, theme: "눈사람", icon: "⛄", requirements: { 8: 1, 6: 1 }, total: 2 },
             { id: 103, theme: "나무", icon: "🌳", requirements: { 3: 1, 4: 1 }, total: 2 },
@@ -84,28 +84,65 @@
             { id: 105, theme: "버섯", icon: "🍄", requirements: { 3: 1, 4: 1 }, total: 2 },
             { id: 106, theme: "마이크", icon: "🎤", requirements: { 8: 1, 4: 1 }, total: 2 },
             { id: 107, theme: "보석반지", icon: "💍", requirements: { 5: 1, 8: 1 }, total: 2 },
+            { id: 108, theme: "아이스크림", icon: "🍦", requirements: { 3: 1, 6: 1 }, total: 2 },
+            { id: 109, theme: "연", icon: "🪁", requirements: { 4: 1, 3: 1 }, total: 2 },
+            { id: 110, theme: "풍선", icon: "🎈", requirements: { 6: 1, 4: 1 }, total: 2 },
+            { id: 111, theme: "화살표", icon: "➡️", requirements: { 3: 1, 4: 1 }, total: 2 },
+            { id: 112, theme: "하트", icon: "❤️", requirements: { 3: 2 }, total: 2 },
+            { id: 113, theme: "별", icon: "⭐", requirements: { 3: 2 }, total: 2 },
+            { id: 114, theme: "배", icon: "🚢", requirements: { 3: 1, 4: 1 }, total: 2 },
+            { id: 115, theme: "텐트", icon: "⛺", requirements: { 3: 1, 4: 1 }, total: 2 },
 
-            // [난이도 3개]
+            // [난이도 3개] - 보통
             { id: 201, theme: "우주선", icon: "🚀", requirements: { 3: 1, 4: 2 }, total: 3 },
             { id: 202, theme: "왕관", icon: "👑", requirements: { 3: 3 }, total: 3 },
             { id: 203, theme: "사탕", icon: "🍬", requirements: { 6: 1, 3: 2 }, total: 3 },
             { id: 204, theme: "오징어", icon: "🦑", requirements: { 3: 1, 4: 2 }, total: 3 },
             { id: 205, theme: "요트", icon: "⛵", requirements: { 4: 1, 3: 2 }, total: 3 },
             { id: 206, theme: "여우", icon: "🦊", requirements: { 3: 2, 5: 1 }, total: 3 },
+            { id: 207, theme: "케이크", icon: "🎂", requirements: { 4: 2, 3: 1 }, total: 3 },
+            { id: 208, theme: "고양이", icon: "🐱", requirements: { 6: 1, 3: 2 }, total: 3 },
+            { id: 209, theme: "선인장", icon: "🌵", requirements: { 4: 1, 6: 2 }, total: 3 },
+            { id: 210, theme: "피자", icon: "🍕", requirements: { 3: 3 }, total: 3 },
+            { id: 211, theme: "비행기", icon: "✈️", requirements: { 4: 1, 3: 2 }, total: 3 },
+            { id: 212, theme: "토끼", icon: "🐰", requirements: { 6: 1, 4: 2 }, total: 3 },
+            { id: 213, theme: "선물상자", icon: "🎁", requirements: { 4: 2, 3: 1 }, total: 3 },
+            { id: 214, theme: "햄버거", icon: "🍔", requirements: { 4: 2, 6: 1 }, total: 3 },
+            { id: 215, theme: "눈꽃", icon: "❄️", requirements: { 6: 1, 3: 2 }, total: 3 },
 
-            // [난이도 4개]
+            // [난이도 4개] - 어려움
             { id: 301, theme: "나비", icon: "🦋", requirements: { 3: 4 }, total: 4 },
             { id: 302, theme: "자동차", icon: "🚗", requirements: { 4: 2, 8: 2 }, total: 4 },
             { id: 303, theme: "잠자리", icon: "🦟", requirements: { 6: 1, 4: 1, 3: 2 }, total: 4 },
             { id: 304, theme: "꽃", icon: "🌸", requirements: { 6: 1, 3: 3 }, total: 4 },
             { id: 305, theme: "강아지", icon: "🐶", requirements: { 4: 1, 3: 2, 6: 1 }, total: 4 },
+            { id: 306, theme: "헬리콥터", icon: "🚁", requirements: { 4: 2, 3: 2 }, total: 4 },
+            { id: 307, theme: "무지개", icon: "🌈", requirements: { 4: 4 }, total: 4 },
+            { id: 308, theme: "펭귄", icon: "🐧", requirements: { 6: 1, 4: 2, 3: 1 }, total: 4 },
+            { id: 309, theme: "선풍기", icon: "🌀", requirements: { 8: 1, 3: 3 }, total: 4 },
+            { id: 310, theme: "우산", icon: "☂️", requirements: { 6: 1, 4: 1, 3: 2 }, total: 4 },
+            { id: 311, theme: "트럭", icon: "🚚", requirements: { 4: 2, 8: 2 }, total: 4 },
+            { id: 312, theme: "곰", icon: "🐻", requirements: { 6: 2, 8: 2 }, total: 4 },
+            { id: 313, theme: "해바라기", icon: "🌻", requirements: { 8: 1, 4: 1, 3: 2 }, total: 4 },
+            { id: 314, theme: "새", icon: "🐦", requirements: { 6: 1, 3: 3 }, total: 4 },
+            { id: 315, theme: "로켓", icon: "🚀", requirements: { 3: 2, 4: 2 }, total: 4 },
 
-            // [난이도 5개]
+            // [난이도 5개] - 도전
             { id: 401, theme: "로봇", icon: "🤖", requirements: { 4: 3, 3: 2 }, total: 5 },
             { id: 402, theme: "성", icon: "🏰", requirements: { 4: 3, 3: 2 }, total: 5 },
             { id: 403, theme: "기차", icon: "🚂", requirements: { 4: 2, 8: 3 }, total: 5 },
             { id: 404, theme: "공룡", icon: "🦖", requirements: { 4: 2, 3: 3 }, total: 5 },
             { id: 405, theme: "사람", icon: "🧍", requirements: { 6: 1, 4: 2, 3: 2 }, total: 5 },
+            { id: 406, theme: "크리스마스트리", icon: "🎄", requirements: { 3: 3, 4: 1, 8: 1 }, total: 5 },
+            { id: 407, theme: "버스", icon: "🚌", requirements: { 4: 2, 8: 3 }, total: 5 },
+            { id: 408, theme: "풍차", icon: "🌬️", requirements: { 3: 4, 4: 1 }, total: 5 },
+            { id: 409, theme: "해적선", icon: "🏴‍☠️", requirements: { 4: 2, 3: 3 }, total: 5 },
+            { id: 410, theme: "부엉이", icon: "🦉", requirements: { 6: 2, 8: 2, 3: 1 }, total: 5 },
+            { id: 411, theme: "소방차", icon: "🚒", requirements: { 4: 3, 8: 2 }, total: 5 },
+            { id: 412, theme: "UFO", icon: "🛸", requirements: { 8: 2, 4: 2, 3: 1 }, total: 5 },
+            { id: 413, theme: "악어", icon: "🐊", requirements: { 4: 3, 3: 2 }, total: 5 },
+            { id: 414, theme: "자전거", icon: "🚲", requirements: { 8: 2, 3: 2, 4: 1 }, total: 5 },
+            { id: 415, theme: "탱크", icon: "🪖", requirements: { 4: 3, 8: 2 }, total: 5 },
         ];
 
         const GRID_SIZE = 20;

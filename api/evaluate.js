@@ -61,14 +61,14 @@ export default async function handler(req, res) {
             3. **창의성**: 정해진 정답은 없습니다. 아이의 의도가 보이면 칭찬해주세요.
 
             [규칙]:
-            - **60점 이상이면 정답(isCorrect: true)입니다.**
-            - 엉뚱하거나 도형이 흩어져 있을 때만 오답 처리하세요.
+            - **85점 이상이면 정답(isCorrect: true)입니다.**
+            - 도형들이 주제와 연결되지 않거나 흩어져 있으면 감점하세요.
             - 피드백은 칭찬을 먼저 하고, 더 멋지게 만들 팁을 덧붙여주세요.
 
             응답 형식: JSON
             {
                 "score": number (0~100),
-                "isCorrect": boolean (score >= 60),
+                "isCorrect": boolean (score >= 85),
                 "message": "한국어 피드백 (다정하고 격려하는 말투)"
             }
         `;
