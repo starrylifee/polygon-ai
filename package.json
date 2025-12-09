@@ -1,0 +1,19 @@
+{
+    "name": "polygon-ai-art",
+    "version": "1.0.0",
+    "description": "AI 다각형 미술 시간 - AI 선생님과 함께하는 창의적인 도형 미술 앱",
+    "private": true,
+    "scripts": {
+        "dev": "vercel dev",
+        "deploy": "vercel --prod"
+    },
+    "keywords": [
+        "ai",
+        "polygon",
+        "art",
+        "education",
+        "gemini"
+    ],
+    "author": "",
+    "license": "MIT"
+}
