@@ -1,49 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 다각형 미술 시간 🎨</title>
     <meta name="description" content="AI 선생님과 함께하는 재미있는 다각형 미술 시간! 도형을 조합해서 창의적인 작품을 만들어보세요.">
-    
+
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
-    
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
         body {
             font-family: 'Jua', sans-serif;
             background-color: #f8fafc;
             overflow: hidden;
             touch-action: none;
         }
+
         .canvas-bg {
-            background-image: 
+            background-image:
                 linear-gradient(to right, #cbd5e1 1px, transparent 1px),
                 linear-gradient(to bottom, #cbd5e1 1px, transparent 1px);
             background-size: 20px 20px;
         }
+
         .vertex-handle {
             cursor: pointer;
             transition: r 0.1s, fill 0.1s;
         }
+
         .vertex-handle:hover {
             r: 8;
             fill: #fbbf24;
         }
+
         .slide-up {
-            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
         @keyframes slideUp {
-            from { transform: translate(-50%, 100%); opacity: 0; }
-            to { transform: translate(-50%, 0); opacity: 1; }
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
+
 <body>
     <div id="root"></div>
 
@@ -98,10 +114,10 @@
             const [shapes, setShapes] = useState([]);
             const [mission, setMission] = useState(null);
             const [dragging, setDragging] = useState({ isDragging: false, target: null, type: null, vertexIndex: null, startX: 0, startY: 0, initialVertices: [] });
-            const [aiStatus, setAiStatus] = useState('idle'); 
+            const [aiStatus, setAiStatus] = useState('idle');
             const [aiFeedback, setAiFeedback] = useState("");
             const [score, setScore] = useState(0);
-            const [level, setLevel] = useState('all'); 
+            const [level, setLevel] = useState('all');
 
             const svgRef = useRef(null);
 
@@ -143,7 +159,7 @@
                 setAiStatus('idle');
                 setAiFeedback("");
                 setScore(0);
-                
+
                 const initialShapes = [];
                 let idCounter = 0;
                 Object.entries(randomMission.requirements).forEach(([sides, count]) => {
@@ -183,7 +199,7 @@
                 setShapes(prev => prev.map(shape => {
                     if (shape.id !== dragging.target) return shape;
                     const newVertices = [...shape.vertices];
-                    
+
                     if (dragging.type === 'body') {
                         const snappedDx = snapToGrid(dx);
                         const snappedDy = snapToGrid(dy);
@@ -198,7 +214,7 @@
                         const targetInitV = dragging.initialVertices[dragging.vertexIndex];
                         const snappedX = snapToGrid(targetInitV.x + dx);
                         const snappedY = snapToGrid(targetInitV.y + dy);
-                        
+
                         const prevIdx = (dragging.vertexIndex - 1 + newVertices.length) % newVertices.length;
                         const nextIdx = (dragging.vertexIndex + 1) % newVertices.length;
                         const prevV = newVertices[prevIdx];
@@ -218,22 +234,22 @@
                 const svg = svgRef.current;
                 const serializer = new XMLSerializer();
                 const svgString = serializer.serializeToString(svg);
-                
+
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 const svgRect = svg.getBoundingClientRect();
-                
+
                 canvas.width = svgRect.width;
                 canvas.height = svgRect.height;
-                
+
                 ctx.fillStyle = "#ffffff";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 return new Promise((resolve) => {
                     const img = new Image();
-                    const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+                    const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
                     const url = URL.createObjectURL(svgBlob);
-                    
+
                     img.onload = () => {
                         ctx.drawImage(img, 0, 0);
                         URL.revokeObjectURL(url);
@@ -271,7 +287,7 @@
                     }
 
                     const result = await response.json();
-                    
+
                     setScore(result.score);
                     setAiFeedback(result.message);
                     setAiStatus(result.isCorrect ? 'success' : 'fail');
@@ -286,7 +302,7 @@
 
             return (
                 <div className="flex flex-col h-screen w-full relative select-none bg-slate-50">
-                    
+
                     <header className="bg-white p-2 md:p-4 shadow-sm z-10 flex flex-col md:flex-row justify-between items-center gap-2 md:h-20">
                         <div className="flex items-center gap-4 w-full md:w-auto justify-between">
                             <h1 className="text-xl md:text-2xl font-bold text-gray-800 flex items-center gap-2 shrink-0">
@@ -298,8 +314,8 @@
                                         key={lvl}
                                         onClick={() => setLevel(lvl)}
                                         className={`px-3 py-1 rounded-md text-sm font-bold transition
-                                            ${level === lvl 
-                                                ? 'bg-white text-green-600 shadow-sm' 
+                                            ${level === lvl
+                                                ? 'bg-white text-green-600 shadow-sm'
                                                 : 'text-gray-400 hover:text-gray-600'
                                             }`}
                                     >
@@ -308,7 +324,7 @@
                                 ))}
                             </div>
                         </div>
-                        
+
                         {mission && (
                             <div className="flex flex-col items-end w-full md:w-auto">
                                 <div className="text-lg font-bold text-slate-700 flex items-center gap-2 bg-white px-3 py-1 rounded-full border shadow-sm justify-center w-full md:w-auto">
@@ -324,14 +340,14 @@
                             <div className="flex flex-col gap-2">
                                 {mission && Object.entries(mission.requirements).map(([sides, count]) => (
                                     <div key={sides} className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-3 h-3 rounded-full" style={{backgroundColor: SHAPES_CONFIG[sides].stroke}}></div>
+                                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: SHAPES_CONFIG[sides].stroke }}></div>
                                         {SHAPES_CONFIG[sides].name} {count}개
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        <svg 
+                        <svg
                             ref={svgRef}
                             className="w-full h-full cursor-crosshair touch-none"
                             onMouseMove={handleMouseMove}
@@ -395,12 +411,12 @@
                                                         {score}점
                                                     </span>
                                                 </div>
-                                                
+
                                                 <div className="bg-slate-50 p-3 rounded-xl w-full text-slate-800 font-medium whitespace-pre-wrap leading-relaxed border border-slate-100 break-keep">
                                                     {aiFeedback}
                                                 </div>
 
-                                                <button 
+                                                <button
                                                     onClick={() => {
                                                         if (aiStatus === 'success') startNewMission();
                                                         else setAiStatus('idle');
@@ -420,27 +436,32 @@
                         )}
                     </div>
 
-                    <div className="bg-white p-4 border-t border-gray-100 z-10 flex justify-center gap-4 h-20 items-center shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
-                        <button 
-                            onClick={startNewMission} 
-                            disabled={aiStatus === 'analyzing'}
-                            className="px-6 py-3 bg-gray-100 text-gray-500 rounded-full font-bold hover:bg-gray-200 transition disabled:opacity-50 text-sm"
-                        >
-                            다른 주제
-                        </button>
-                        
-                        <button 
-                            onClick={checkAnswerWithAI}
-                            disabled={aiStatus === 'analyzing' || shapes.length === 0}
-                            className={`
-                                flex-1 max-w-xs py-3 rounded-full font-bold text-white shadow-lg transition flex items-center justify-center gap-2
-                                ${aiStatus === 'analyzing' 
-                                    ? 'bg-gray-400 cursor-wait' 
-                                    : 'bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 hover:-translate-y-1'}
-                            `}
-                        >
-                            {aiStatus === 'analyzing' ? '감상 중...' : '📸 AI 선생님! 보세요!'}
-                        </button>
+                    <div className="bg-white p-4 border-t border-gray-100 z-10 flex flex-col shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
+                        <div className="flex justify-center gap-4 h-16 items-center">
+                            <button
+                                onClick={startNewMission}
+                                disabled={aiStatus === 'analyzing'}
+                                className="px-6 py-3 bg-gray-100 text-gray-500 rounded-full font-bold hover:bg-gray-200 transition disabled:opacity-50 text-sm"
+                            >
+                                다른 주제
+                            </button>
+
+                            <button
+                                onClick={checkAnswerWithAI}
+                                disabled={aiStatus === 'analyzing' || shapes.length === 0}
+                                className={`
+                                    flex-1 max-w-xs py-3 rounded-full font-bold text-white shadow-lg transition flex items-center justify-center gap-2
+                                    ${aiStatus === 'analyzing'
+                                        ? 'bg-gray-400 cursor-wait'
+                                        : 'bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 hover:-translate-y-1'}
+                                `}
+                            >
+                                {aiStatus === 'analyzing' ? '감상 중...' : '📸 AI 선생님! 보세요!'}
+                            </button>
+                        </div>
+                        <div className="text-center text-xs text-gray-400 pb-1">
+                            © 서울신답초등학교 정용석
+                        </div>
                     </div>
                 </div>
             );
@@ -450,4 +471,5 @@
         root.render(<App />);
     </script>
 </body>
+
 </html>
